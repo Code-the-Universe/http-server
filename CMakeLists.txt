@@ -18,14 +18,14 @@ set(CMAKE_BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 # need to link SFML before using
 
 # we're linking statically
-set(SFML_STATIC_LIBRARIES TRUE)
+#set(SFML_STATIC_LIBRARIES TRUE)
 
 # finding SFML
-find_package(SFML COMPONENTS network system)
+find_package(SFML 2 COMPONENTS network system)
 
 # linking
+include_directories(${SFML_INCLUDE_DIR})
 target_link_libraries(HTTP sfml-network sfml-system)
-
 
 # needed for std::thread
 find_package(Threads REQUIRED)
