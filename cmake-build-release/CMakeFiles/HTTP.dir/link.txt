@@ -1,0 +1,1 @@
+/usr/bin/clang++  -O3 -DNDEBUG   CMakeFiles/HTTP.dir/main.cpp.o  -o HTTP  -lsfml-network -lsfml-system -lpthread 

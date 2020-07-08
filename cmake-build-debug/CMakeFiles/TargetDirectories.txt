@@ -1,0 +1,4 @@
+/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/socket.dir
+/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/HTTP.dir

@@ -1,0 +1,58 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):make cmTC_ad5d3/fast && make -f CMakeFiles/cmTC_ad5d3.dir/build.make CMakeFiles/cmTC_ad5d3.dir/build
+make[1]: Entering directory '/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ad5d3.dir/src.c.o
+/usr/bin/clang   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_ad5d3.dir/src.c.o   -c /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ad5d3
+/opt/clion-2020.1.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ad5d3.dir/link.txt --verbose=1
+/usr/bin/clang  -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_ad5d3.dir/src.c.o  -o cmTC_ad5d3 
+/usr/bin/ld: CMakeFiles/cmTC_ad5d3.dir/src.c.o: in function `main':
+src.c:(.text+0x32): undefined reference to `pthread_create'
+/usr/bin/ld: src.c:(.text+0x3e): undefined reference to `pthread_detach'
+/usr/bin/ld: src.c:(.text+0x50): undefined reference to `pthread_join'
+clang-10: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [CMakeFiles/cmTC_ad5d3.dir/build.make:87: cmTC_ad5d3] Error 1
+make[1]: Leaving directory '/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_ad5d3/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):make cmTC_2cd7f/fast && make -f CMakeFiles/cmTC_2cd7f.dir/build.make CMakeFiles/cmTC_2cd7f.dir/build
+make[1]: Entering directory '/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2cd7f.dir/CheckFunctionExists.c.o
+/usr/bin/clang   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_2cd7f.dir/CheckFunctionExists.c.o   -c /opt/clion-2020.1.2/bin/cmake/linux/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2cd7f
+/opt/clion-2020.1.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2cd7f.dir/link.txt --verbose=1
+/usr/bin/clang  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_2cd7f.dir/CheckFunctionExists.c.o  -o cmTC_2cd7f  -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+clang-10: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [CMakeFiles/cmTC_2cd7f.dir/build.make:87: cmTC_2cd7f] Error 1
+make[1]: Leaving directory '/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_2cd7f/fast] Error 2
+
+
+

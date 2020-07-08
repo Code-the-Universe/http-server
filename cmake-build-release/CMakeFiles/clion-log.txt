@@ -1,0 +1,14 @@
+/opt/clion-2020.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=make -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G "CodeBlocks - Unix Makefiles" /home/mikadore/Documents/http-server-ctu
+-- Requested SFML configuration (Static) was not found
+CMake Warning at CMakeLists.txt:24 (find_package):
+  Found package configuration file:
+
+    /usr/lib64/cmake/SFML/SFMLConfig.cmake
+
+  but it set SFML_FOUND to FALSE so package "SFML" is considered to be NOT
+  FOUND.
+
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/mikadore/Documents/http-server-ctu/cmake-build-release
