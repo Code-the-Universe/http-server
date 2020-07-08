@@ -3,3 +3,6 @@
 
 CMakeFiles/HTTP.dir/main.cpp.o: ../main.cpp
 
+CMakeFiles/HTTP.dir/src/Worker.cpp.o: ../include/Worker.h
+CMakeFiles/HTTP.dir/src/Worker.cpp.o: ../src/Worker.cpp
+

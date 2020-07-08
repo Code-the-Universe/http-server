@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/HTTP.dir/main.cpp.o"
+  "CMakeFiles/HTTP.dir/src/Worker.cpp.o"
   "HTTP"
   "HTTP.pdb"
 )

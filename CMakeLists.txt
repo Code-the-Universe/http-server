@@ -4,8 +4,10 @@ project(HTTP)
 # The C++ standard used
 set(CMAKE_CXX_STANDARD 17)
 
-# Compiler warning levels
-add_executable(HTTP main.cpp)
+# executable
+add_executable(HTTP main.cpp src/Worker.cpp)
+
+# compiler warnings
 if(MSVC)
     target_compile_options(HTTP PRIVATE /W4 /WX)
 else()
@@ -20,6 +22,9 @@ find_package(SFML 2 COMPONENTS network system)
 # linking
 include_directories(${SFML_INCLUDE_DIR})
 target_link_libraries(HTTP sfml-network sfml-system)
+
+# include paths
+target_include_directories(HTTP PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # needed for std::thread
 find_package(Threads REQUIRED)

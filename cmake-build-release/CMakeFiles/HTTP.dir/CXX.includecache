@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Worker.h
+thread
+-
+atomic
+-
+SFML/Network.hpp
+-
+
+/home/mikadore/Documents/http-server-ctu/src/Worker.cpp
+Worker.h
+/home/mikadore/Documents/http-server-ctu/src/Worker.h
+

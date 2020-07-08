@@ -244,6 +244,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/Worker.o: src/Worker.cpp.o
+
+.PHONY : src/Worker.o
+
+# target to build an object file
+src/Worker.cpp.o:
+	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/src/Worker.cpp.o
+.PHONY : src/Worker.cpp.o
+
+src/Worker.i: src/Worker.cpp.i
+
+.PHONY : src/Worker.i
+
+# target to preprocess a source file
+src/Worker.cpp.i:
+	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/src/Worker.cpp.i
+.PHONY : src/Worker.cpp.i
+
+src/Worker.s: src/Worker.cpp.s
+
+.PHONY : src/Worker.s
+
+# target to generate assembly for a file
+src/Worker.cpp.s:
+	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/src/Worker.cpp.s
+.PHONY : src/Worker.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -266,6 +293,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/Worker.o"
+	@echo "... src/Worker.i"
+	@echo "... src/Worker.s"
 .PHONY : help
 
 

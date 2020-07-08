@@ -86,6 +86,7 @@
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
+					<Add directory="/home/mikadore/Documents/http-server-ctu/include"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0/backward"/>
@@ -107,6 +108,7 @@
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
+					<Add directory="/home/mikadore/Documents/http-server-ctu/include"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.1.0/../../../../include/c++/10.1.0/backward"/>
@@ -132,6 +134,9 @@
 			<Option target="socket"/>
 		</Unit>
 		<Unit filename="/home/mikadore/Documents/http-server-ctu/main.cpp">
+			<Option target="HTTP"/>
+		</Unit>
+		<Unit filename="/home/mikadore/Documents/http-server-ctu/src/Worker.cpp">
 			<Option target="HTTP"/>
 		</Unit>
 		<Unit filename="/home/mikadore/Documents/http-server-ctu/CMakeLists.txt">

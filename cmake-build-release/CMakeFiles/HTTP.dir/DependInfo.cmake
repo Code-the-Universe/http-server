@@ -5,11 +5,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/mikadore/Documents/http-server-ctu/main.cpp" "/home/mikadore/Documents/http-server-ctu/cmake-build-release/CMakeFiles/HTTP.dir/main.cpp.o"
+  "/home/mikadore/Documents/http-server-ctu/src/Worker.cpp" "/home/mikadore/Documents/http-server-ctu/cmake-build-release/CMakeFiles/HTTP.dir/src/Worker.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../include"
   )
 
 # Targets to which this target links.

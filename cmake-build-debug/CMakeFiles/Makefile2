@@ -76,7 +76,7 @@ clean: CMakeFiles/HTTP.dir/clean
 CMakeFiles/socket.dir/all:
 	$(MAKE) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/depend
 	$(MAKE) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6 "Built target socket"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles --progress-num=4,5,6,7 "Built target socket"
 .PHONY : CMakeFiles/socket.dir/all
 
 # Build rule for subdir invocation for target.
@@ -103,12 +103,12 @@ CMakeFiles/socket.dir/clean:
 CMakeFiles/HTTP.dir/all:
 	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/depend
 	$(MAKE) -f CMakeFiles/HTTP.dir/build.make CMakeFiles/HTTP.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target HTTP"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target HTTP"
 .PHONY : CMakeFiles/HTTP.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/HTTP.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HTTP.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/HTTP.dir/rule
