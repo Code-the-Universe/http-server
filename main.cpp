@@ -1,32 +1,37 @@
 #include <SFML/Network.hpp>
 #include <iostream>
-#include <ctime>
-
 int main()
 {
-    constexpr unsigned short port = 27277;
-    sf::TcpListener listener{ };
-    auto result = listener.listen(port);
-    if(result != sf::Socket::Done)
+    std::cout<<"starting\n";
+    sf::TcpListener socket;
+    if (socket.listen(80) != sf::Socket::Done)
     {
-        std::cout << "Error binding!\n";
-        std::exit(1);
+        std::cout<<"error binding\n";
     }
+    sf::SocketSelector selector;
+    selector.add(socket);
     while(true)
     {
-        sf::TcpSocket client;
-        result = listener.accept(client);
-        if (result != sf::Socket::Done) {
-            std::cout << "Error accepting client! \n";
-            std::exit(1);
-        } else {
-            std::cout << "Accepted client! \n";
+        if (selector.wait(sf::seconds(10.f)))
+        {
+            if (selector.isReady(socket))
+            {
+                sf::TcpSocket client;
+                if (socket.accept(client) == sf::Socket::Done)
+                {
+                    std::cout<<"clinu accepted\n";
+                    char data[10000];
+                    size_t received;
+                    if( client.receive(data, 10000, received) == sf::Socket::Done)
+                    {
+                        std::cout<<data<<"\n";
+                        if ( client.send("HTTP/1.1 200 OK\nHello\n", 22) != sf::Socket::Done)
+                        {
+                            std::cout<<"error sending to cli\n";
+                        }
+                    }
+                }
+            }
         }
-        std::string HTTP = "HTTP/1.1 501 NOT IMPLEMENTED \nDate: ";
-        std::time_t time = std::time(nullptr);
-        HTTP += std::asctime(std::localtime(&time));
-        std::size_t sent;
-        client.send(HTTP.c_str(), HTTP.size() + 1, sent);
-        std::cout << "Sent " << sent << " characters:\n" << HTTP;
     }
 }
