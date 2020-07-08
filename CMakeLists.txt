@@ -12,13 +12,9 @@ else()
     target_compile_options(HTTP PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 
-# bin
-set(CMAKE_BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-
 # need to link SFML before using
 
-# we're linking statically
-set(SFML_STATIC_LIBRARIES TRUE)
+# set(SFML_STATIC_LIBRARIES TRUE)
 
 # finding SFML
 find_package(SFML COMPONENTS network system)
@@ -37,9 +33,6 @@ if(CMAKE_THREAD_LIBS_INIT)
 endif()
 
 # SFML-Demo - Copied out of SFML's GitHub repo
-
-# set output dir
-set(CMAKE_BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SFML-Demo/bin)
 
 # add executable with source files
 add_executable(socket SFML-Demo/Sockets.cpp SFML-Demo/UDP.cpp SFML-Demo/TCP.cpp)

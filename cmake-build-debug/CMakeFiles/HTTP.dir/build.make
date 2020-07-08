@@ -79,6 +79,8 @@ HTTP_EXTERNAL_OBJECTS =
 
 HTTP: CMakeFiles/HTTP.dir/main.cpp.o
 HTTP: CMakeFiles/HTTP.dir/build.make
+HTTP: /usr/lib/libsfml-network.so.2.5.1
+HTTP: /usr/lib/libsfml-system.so.2.5.1
 HTTP: CMakeFiles/HTTP.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mikadore/Documents/http-server-ctu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable HTTP"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HTTP.dir/link.txt --verbose=$(VERBOSE)

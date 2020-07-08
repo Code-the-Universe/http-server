@@ -43,7 +43,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/opt/clion-2020.1.2/bin/cmake/linux/share/cmake-3.16/Modules/Platform/UnixPaths.cmake"
   "/opt/clion-2020.1.2/bin/cmake/linux/share/cmake-3.16/Modules/ProcessorCount.cmake"
   "/usr/lib64/cmake/SFML/SFMLConfig.cmake"
+  "/usr/lib64/cmake/SFML/SFMLConfigDependencies.cmake"
   "/usr/lib64/cmake/SFML/SFMLConfigVersion.cmake"
+  "/usr/lib64/cmake/SFML/SFMLSharedTargets-release.cmake"
+  "/usr/lib64/cmake/SFML/SFMLSharedTargets.cmake"
   )
 
 # The corresponding makefile is:

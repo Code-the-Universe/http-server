@@ -140,7 +140,16 @@
 		<Unit filename="/home/mikadore/Documents/http-server-ctu/../../../../usr/lib64/cmake/SFML/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib64\cmake\SFML\"/>
 		</Unit>
+		<Unit filename="/home/mikadore/Documents/http-server-ctu/../../../../usr/lib64/cmake/SFML/SFMLConfigDependencies.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib64\cmake\SFML\"/>
+		</Unit>
 		<Unit filename="/home/mikadore/Documents/http-server-ctu/../../../../usr/lib64/cmake/SFML/SFMLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib64\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/home/mikadore/Documents/http-server-ctu/../../../../usr/lib64/cmake/SFML/SFMLSharedTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib64\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/home/mikadore/Documents/http-server-ctu/../../../../usr/lib64/cmake/SFML/SFMLSharedTargets.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib64\cmake\SFML\"/>
 		</Unit>
 	</Project>
