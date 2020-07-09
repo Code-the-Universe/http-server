@@ -1,12 +1,37 @@
-#include <SFML/Network.hpp>
 #include <iostream>
 #include <thread>
-#include <list>
-#include <memory>
-#include <mutex>
-#include "Worker.h"
+#include <vector>
+//stuff
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
+#include <cstring>
 #include <unistd.h>
+
+#include "Worker.h"
+
+//just a example func to handle a socket connection by int only
+void handle(int socket)
+{
+    char data[1024];
+    int response = recv(socket, data, 1024, 0);
+    if (response > 0)
+    {
+        std::string msg = "HTTP/1.1 200 OK\nHello!";
+        int bytes_sent = send(socket, msg.c_str(), msg.size(), 0);
+        if (bytes_sent > 0)
+        {
+            close(socket);
+        }
+    }
+    else if (response == 0)
+    {
+        //close
+        close(socket);
+    }
+}
+
 int main(int argc, char* argv[])
 {
     if(argc < 3)
@@ -17,47 +42,86 @@ int main(int argc, char* argv[])
     const unsigned short port = std::atoi(argv[1]);
     const unsigned short worker_number = std::atoi(argv[2]);
     std::cout << "Starting server on port " << port << " with " << worker_number << " workers\n";
-    sf::TcpListener listener{ };
-    if(listener.listen(port) != sf::Socket::Done)
+    //test stuff
+    int status;
+    struct addrinfo hints;
+    struct addrinfo *servinfo;          // will point to the results
+
+    memset(&hints, 0, sizeof hints);    // make sure the struct is empty
+    hints.ai_family = AF_INET;          //IP4
+    hints.ai_socktype = SOCK_STREAM;    //TCP stream sockets
+    hints.ai_flags = AI_PASSIVE;        //fill in my IP for me OwO
+
+    if ((status = getaddrinfo(NULL, argv[1], &hints, &servinfo)) != 0)
     {
-        std::cout << "Error binding!\n";
+        fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
         std::exit(1);
     }
-    std::mutex client_mutex;
-    std::list<std::unique_ptr<sf::TcpSocket>> clients;
-    std::thread handler{[&]{
-        std::vector<http::Worker> workers(worker_number);
-        for(int i = 0; i < worker_number; i++)
+
+    int sockkies = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+    if (sockkies == -1)
+    {
+        std::cout<<"error with getting socket descriptor\n";
+        std::exit(1);
+    }
+    else
+    {
+        std::cout<<"socket descriptor is: " << sockkies << "\n";
+    }
+
+    //lose error to rebind to the same sock
+    int yes=1;
+    if (setsockopt(sockkies,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof yes) == -1) {
+        perror("setsockopt");
+        exit(1);
+    }
+    //end of error removal
+
+    int error = bind(sockkies, servinfo->ai_addr, servinfo->ai_addrlen);
+    if( error == -1)
+    {
+        std::cout<<"error binding\n";
+        std::exit(1);
+    }
+    else
+    {
+        std::cout<<"bound to a socket/port thingy\n";
+    }
+
+    error = listen(sockkies, 10);
+    if (error == -1)
+    {
+        std::cout<<"error when trying to listen\n";
+        std::exit(1);
+    }
+    else
+    {
+        std::cout<<"listening to the port\n";
+    }
+    struct sockaddr_storage their_addr;
+    socklen_t addr_size;
+    addr_size = sizeof(their_addr);
+
+    std::vector<http::Worker> workers(worker_number);
+    for(int i = 0; i < worker_number; i++)
+    {
+        workers.at(i).id = i + 1;
+    }
+
+    while(true)
+    {
+        int new_socket = accept(sockkies, (struct sockaddr *)&their_addr, &addr_size);
+        if (new_socket != -1)
         {
-            workers.at(i).id = i + 1;
-        }
-        while(true)
-        {
-            std::lock_guard lockGuard{ client_mutex };
-            while(!clients.empty())
+            for(auto& worker : workers)
             {
-                //std::cout << "Queue is not empty, querying workers\n";
-                for(auto& worker : workers)
+                if (worker.isAvailable())
                 {
-                    if (worker.isAvailable())
-                    {
-                        //std::cout << "Worker " << worker.id << " available!\n";
-                        worker.assign(std::move(clients.front()));
-                        clients.pop_front();
-                        //Very important, its absence would cause a segfault
-                        break;
-                    }
+                    worker.assign(new_socket);
+                    break;
                 }
             }
         }
-    }};
-    while(true)
-    {
-        auto client = std::make_unique<sf::TcpSocket>();
-        listener.accept(*client);
-        //std::cout << "Accepted client from: " << client->getRemoteAddress() << '\n';
-        std::lock_guard lockGuard{ client_mutex };
-        clients.push_back(std::move(client));
-        //std::cout << "Pushed client to queue! \n";
     }
+    freeaddrinfo(servinfo);
 }

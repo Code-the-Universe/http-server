@@ -3,7 +3,6 @@
 #include <thread>
 #include <atomic>
 #include <memory>
-#include <SFML/Network.hpp>
 
 namespace http
 {
@@ -14,12 +13,12 @@ namespace http
         std::atomic_bool available = true;
         std::atomic_bool signaller = false;
         std::thread m_thread;
-        std::unique_ptr<sf::TcpSocket> m_client = nullptr;
+        int m_client = -1;
     public:
         unsigned int id;
 
         Worker();
-        void assign(std::unique_ptr<sf::TcpSocket>&&) noexcept;
+        void assign(int) noexcept;
 
         void stop() noexcept;
         bool isAvailable() noexcept { return available; };
