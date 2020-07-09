@@ -1,37 +1,63 @@
 #include <SFML/Network.hpp>
 #include <iostream>
-int main()
+#include <thread>
+#include <list>
+#include <memory>
+#include <mutex>
+#include "Worker.h"
+#include <sys/types.h>
+#include <unistd.h>
+int main(int argc, char* argv[])
 {
-    std::cout<<"starting\n";
-    sf::TcpListener socket;
-    if (socket.listen(80) != sf::Socket::Done)
+    if(argc < 3)
     {
-        std::cout<<"error binding\n";
+        std::cout << "You need to specify the port and worker number !\n";
+        std::exit(1);
     }
-    sf::SocketSelector selector;
-    selector.add(socket);
-    while(true)
+    const unsigned short port = std::atoi(argv[1]);
+    const unsigned short worker_number = std::atoi(argv[2]);
+    std::cout << "Starting server on port " << port << " with " << worker_number << " workers\n";
+    sf::TcpListener listener{ };
+    if(listener.listen(port) != sf::Socket::Done)
     {
-        if (selector.wait(sf::seconds(10.f)))
+        std::cout << "Error binding!\n";
+        std::exit(1);
+    }
+    std::mutex client_mutex;
+    std::list<std::unique_ptr<sf::TcpSocket>> clients;
+    std::thread handler{[&]{
+        std::vector<http::Worker> workers(worker_number);
+        for(int i = 0; i < worker_number; i++)
         {
-            if (selector.isReady(socket))
+            workers.at(i).id = i + 1;
+        }
+        while(true)
+        {
+            std::lock_guard lockGuard{ client_mutex };
+            while(!clients.empty())
             {
-                sf::TcpSocket client;
-                if (socket.accept(client) == sf::Socket::Done)
+                //std::cout << "Queue is not empty, querying workers\n";
+                for(auto& worker : workers)
                 {
-                    std::cout<<"clinu accepted\n";
-                    char data[10000];
-                    size_t received;
-                    if( client.receive(data, 10000, received) == sf::Socket::Done)
+                    if (worker.isAvailable())
                     {
-                        std::cout<<data<<"\n";
-                        if ( client.send("HTTP/1.1 200 OK\nHello\n", 22) != sf::Socket::Done)
-                        {
-                            std::cout<<"error sending to cli\n";
-                        }
+                        //std::cout << "Worker " << worker.id << " available!\n";
+                        worker.assign(std::move(clients.front()));
+                        clients.pop_front();
+                        //Very important, its absence would cause a segfault
+                        break;
                     }
                 }
             }
         }
+    }};
+    while(true)
+    {
+        auto client = std::make_unique<sf::TcpSocket>();
+        listener.accept(*client);
+        //std::cout << "Accepted client from: " << client->getRemoteAddress() << '\n';
+        std::lock_guard lockGuard{ client_mutex };
+        clients.push_back(std::move(client));
+        //std::cout << "Pushed client to queue! \n";
     }
 }
