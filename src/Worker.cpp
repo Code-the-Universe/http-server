@@ -12,7 +12,7 @@ namespace http
             {
                 available = false;
                 char buffer[2048];
-                // std::cout << "Worker number " << id << " working on client object " << m_client.get() << '\n';
+                //std::cout << "Worker number " << id << " working on client object " << m_client.get() << '\n';
                 std::size_t received;
                 m_client->receive(buffer, 2048, received);
                 // std::cout << "Received " << received << " characters:\n";
@@ -34,8 +34,8 @@ namespace http
         //Shouldn't be needed at this point
         if (available)
         {
+            //std::cout << "Assigning " << client.get() << " managed by " << &client << " to object " << &m_client << '\n';
             m_client = std::move(client);
-            // std::cout << "Assigned client in worker " << id << " with client " << client.get() << " moved to " << m_client.get() << '\n';
             signaller = true;
         }
     }
