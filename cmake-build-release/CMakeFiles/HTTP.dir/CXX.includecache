@@ -7,13 +7,17 @@
 #IncludeRegexTransform: 
 
 ../include/Worker.h
+SFML/Network.hpp
+-
 thread
 -
 atomic
 -
 memory
 -
-SFML/Network.hpp
+mutex
+-
+condition_variable
 -
 
 /home/mikadore/Documents/http-server-ctu/main.cpp
@@ -21,9 +25,7 @@ SFML/Network.hpp
 -
 iostream
 -
-thread
--
-list
+vector
 -
 memory
 -
@@ -40,5 +42,7 @@ cstdio
 string
 -
 iostream
+-
+mutex
 -
 

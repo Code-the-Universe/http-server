@@ -1,1 +1,1 @@
-/usr/bin/clang++  -O3 -DNDEBUG   CMakeFiles/HTTP.dir/main.cpp.o CMakeFiles/HTTP.dir/src/Worker.cpp.o  -o HTTP  /usr/lib/libsfml-network.so.2.5.1 /usr/lib/libsfml-system.so.2.5.1 -lpthread 
+/usr/bin/clang++  -O3   CMakeFiles/HTTP.dir/main.cpp.o CMakeFiles/HTTP.dir/src/Worker.cpp.o  -o HTTP  /usr/lib/libsfml-network.so.2.5.1 /usr/lib/libsfml-system.so.2.5.1 -lpthread 
