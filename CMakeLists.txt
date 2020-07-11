@@ -50,3 +50,8 @@ add_executable(socket SFML-Demo/Sockets.cpp SFML-Demo/UDP.cpp SFML-Demo/TCP.cpp)
 
 # linking sfml for demos
 target_link_libraries(socket sfml-network sfml-system)
+
+# add tests
+add_executable(tests test/RequestParserTest.cpp src/HTTParser.cpp)
+
+target_include_directories(tests PUBLIC include)

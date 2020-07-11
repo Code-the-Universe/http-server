@@ -8,11 +8,13 @@ namespace http
     class Request
     {
         // request method
-        unsigned int m_method;
+        int m_method;
+        //indicates an error during the parsing stage
+        bool parse_error;
 
         public:
         // Parse request
-        static Request parse(std::string_view);
+        static Request parse(std::string_view) noexcept;
 
         // Method enumerations
         enum
@@ -31,7 +33,8 @@ namespace http
         /**
          * Actual instance info
          */
-         inline unsigned int method() { return m_method; }
+         inline int method() const noexcept { return m_method; }
+         inline bool error() const noexcept { return parse_error; }
 
     };
 }
