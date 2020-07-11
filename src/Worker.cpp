@@ -2,14 +2,16 @@
 #include <cstdio>
 #include <string>
 #include <mutex>
-#include <iostream>
+#include "HTTParser.h"
 #include "Worker.h"
+#include <iostream>
 namespace http
 {
     Worker::Worker() : m_thread([this]()
     {
         char buffer[2048];
         std::unique_lock lock{ cond_mutex };
+        sf::SocketSelector selector{ };
         while(true)
         {
             // Wait for assign to notify_one()
@@ -19,7 +21,6 @@ namespace http
             //Disable availability
             available = false;
 
-            sf::SocketSelector selector{ };
             selector.add(*m_client);
 
             std::size_t sent;
@@ -28,14 +29,23 @@ namespace http
             {
                 std::size_t received;
                 m_client->receive(buffer, 2048, received);;
-                std::string response = "HTTP/1.1 501 Not Implemented\r\n";
-                m_client->send(response.data(), response.size() + 1, sent);
+                Request request = Request::parse(std::string_view(buffer, received));
+                if(request.error())
+                {
+                    std::string response = "HTTP/1.1 400 Bad HTTParser\r\n\r\n";
+                    m_client->send(response.data(), response.size() + 1, sent);
+                } else
+                {
+                    std::string response = Response::response(request);
+                    m_client->send(response.data(), response.size() + 1, sent);
+                }
             }
             else
             {
-                std::string response = "HTTP/1.1 408 Request Timeout\r\n";
+                std::string response = "HTTP/1.1 408 Request Timeout\r\n\r\n";
                 m_client->send(response.data(), response.size() + 1, sent);
             }
+            selector.clear();
             m_client.reset(nullptr);
             m_client = nullptr;            //Make Worker available again
             available = true;
