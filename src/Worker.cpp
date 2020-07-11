@@ -22,11 +22,12 @@ namespace http
             //Disable availability
             available = false;
 
+            //std::cout << "Adding " << m_client.get() << " to selector.\n";
             selector.add(*m_client);
 
             std::size_t sent;
             // Give the client a millisecond to send data
-            if(selector.wait(sf::milliseconds(1)))
+            if(selector.wait(sf::milliseconds(5)))
             {
                 std::size_t received;
                 m_client->receive(buffer, 2048, received);;
@@ -38,11 +39,11 @@ namespace http
                 } else
                 {
                     //std::string response = Response::response(request);
-                    std::cout << "Parsed request without errors\n!";
+                    //std::cout << "\n\n\nParsed request without errors\n!";
                     const char* response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain; charset=utf8\r\nContent-Length: 13\r\n\r\nHello World!";
-                    std::cout << "Sending:\n" << response;
+                    //std::cout << "Sending:\n" << response;
                     m_client->send(response, std::strlen(response), sent);
-
+                    //std::cout << "\nSent! \n\n\n";
                 }
             }
             else
@@ -64,8 +65,8 @@ namespace http
         if (available)
         {
             // std::cout << "Worker " << id << " moving " << client.get() << " managed by " << &client << " to object " << &m_client << '\n';
-            m_client = std::move(client);
             std::lock_guard lock{ cond_mutex };
+            m_client = std::move(client);
             signaller = true;
             cond_var.notify_one();
         }

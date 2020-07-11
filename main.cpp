@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <mutex>
+#include <list>
 #include "Worker.h"
 int main(int argc, char* argv[])
 {
@@ -34,6 +35,8 @@ int main(int argc, char* argv[])
     {
         workers.at(i).id = i + 1;
     }
+    //list of clients
+    std::list<std::unique_ptr<sf::TcpSocket>> clients;
     //Main loop
     while(true)
     {
@@ -41,22 +44,17 @@ int main(int argc, char* argv[])
         auto client = std::make_unique<sf::TcpSocket>();
         //Accept client
         listener.accept(*client);
-        //Lambda to break out of nested loops
-        [&] {
-            //Wait till worker is available
-            while (true)
+        //you gotta wait till it's time for you :D
+        clients.push_back(std::move(client));
+        //Go through each worker till the client list is empty
+        for (std::size_t i = 0; i < workers.size() && !clients.empty(); i++)
+        {
+            if (workers[i].isAvailable())
             {
-                //Go through each worker and check availability
-                for (auto &worker : workers)
-                {
-                    if (worker.isAvailable())
-                    {
-                        //Move client to worker
-                        worker.assign(std::move(client));
-                        return;
-                    }
-                }
+                //Move client to worker
+                workers[i].assign(std::move(clients.front()));
+                clients.pop_front();
             }
-        }();
+        }
     }
 }

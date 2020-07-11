@@ -1,5 +1,5 @@
 #ifndef HTTP_HTTPARSER_H
-#define HTTP_REQUEST_H
+#define HTTP_HTTPARSER_H
 #include <string>
 #include <map>
 namespace http
