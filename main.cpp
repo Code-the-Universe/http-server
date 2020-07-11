@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     if(argc < 3)
     {
         std::cout << "You need to specify the port and worker number !\n";
-        std::exit(1);
+        return 1;
     }
     //Parse argument 1 as port
     const unsigned short port = std::stoi(argv[1]);
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     if(listener.listen(port) != sf::Socket::Done)
     {
         std::cout << "Error binding!\n";
-        std::exit(1);
+        return 1;
     }
 
     //Vector of workers
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     while(true)
     {
         //Create smart pointer to connection
-        auto client = std::make_unique<sf::TcpSocket>();;
+        auto client = std::make_unique<sf::TcpSocket>();
         //Accept client
         listener.accept(*client);
         //Lambda to break out of nested loops

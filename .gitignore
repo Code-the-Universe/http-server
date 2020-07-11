@@ -2,6 +2,9 @@
 .DS_Store
 build/
 bin/
+cmake-build-debug
+cmake-build-release
+.idea
 
 # Prerequisites
 *.d
