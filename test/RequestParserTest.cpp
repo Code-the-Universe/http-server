@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <HTTParser.h>
-TEST_CASE ("Request parser")
+TEST_CASE ("HTTParser parser")
 {
     const std::string base = " / HTTP/1.1\r\n\r\n";
     auto r = http::Request::parse("GET" + base);

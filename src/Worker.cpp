@@ -4,6 +4,7 @@
 #include <mutex>
 #include "HTTParser.h"
 #include "Worker.h"
+#include <cstring>
 #include <iostream>
 namespace http
 {
@@ -36,8 +37,12 @@ namespace http
                     m_client->send(response.data(), response.size() + 1, sent);
                 } else
                 {
-                    std::string response = Response::response(request);
-                    m_client->send(response.data(), response.size() + 1, sent);
+                    //std::string response = Response::response(request);
+                    std::cout << "Parsed request without errors\n!";
+                    const char* response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain; charset=utf8\r\nContent-Length: 13\r\n\r\nHello World!";
+                    std::cout << "Sending:\n" << response;
+                    m_client->send(response, std::strlen(response), sent);
+
                 }
             }
             else

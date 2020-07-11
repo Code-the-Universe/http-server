@@ -13,7 +13,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_STANDARD 17)
 
 # executable
-add_executable(HTTP main.cpp src/Worker.cpp)
+add_executable(HTTP main.cpp src/Worker.cpp src/Response.cpp src/Request.cpp)
 
 # compiler warnings
 if(MSVC)
@@ -52,6 +52,6 @@ add_executable(socket SFML-Demo/Sockets.cpp SFML-Demo/UDP.cpp SFML-Demo/TCP.cpp)
 target_link_libraries(socket sfml-network sfml-system)
 
 # add tests
-add_executable(tests test/RequestParserTest.cpp src/HTTParser.cpp)
+add_executable(tests test/RequestParserTest.cpp src/Request.cpp)
 
 target_include_directories(tests PUBLIC include)

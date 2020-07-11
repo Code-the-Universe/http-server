@@ -6,6 +6,7 @@ namespace http
     Request Request::parse(std::string_view request) noexcept
     {
         Request return_val;
+        return_val.m_request = request;
         // Parse request method
         //Minimal workable request 'GET / HTTP/1.1\r\n\r\n' -> 18 characters
         if (request.size() < 18)
